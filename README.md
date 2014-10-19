@@ -3,7 +3,7 @@ BattleShip
 
 Jogo Batalha Naval desenvolvido em Java usando aplicação de Padrões de Projeto.
 
-Batalha Naval é um jogo de tabuleiro de dois jogadores, no qual os jogadores têm de adivinhar em que quadrados estão os navios dos oponentes. o objetivo é derrubar os barcos do oponente adversário, ganha quem derrubar todos oa navios adversários primeiro.
+Batalha Naval é um jogo de tabuleiro de dois jogadores, no qual os jogadores têm de adivinhar em que quadrados estão os navios dos oponentes. O objetivo é derrubar os barcos do oponente adversário, ganha quem derrubar todos os navios adversários primeiro.
 
 O tabuleiro poderá ser configurado em três níveis de dificuldade:
 
