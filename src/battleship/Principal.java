@@ -1,20 +1,18 @@
 package battleship;
 
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
+import telas.TelaInicial;
 
 public class Principal {
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				Tabuleiro thisClass = new Tabuleiro();
-				
-				// Configura o fechamento da janela
-				thisClass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				
+				// Inicia a Tela Inicial
+				TelaInicial telaInicial = new TelaInicial();				
 				// Deixa a janela visível
-				thisClass.setVisible(true);
+				telaInicial.setVisible(true);
 			}
 		});		
 	}
