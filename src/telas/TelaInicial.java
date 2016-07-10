@@ -2,6 +2,8 @@ package telas;
 
 import javax.swing.*;
 
+import battleship.Jogador;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -10,9 +12,20 @@ public class TelaInicial extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	
-	private JPanel contentPane;
-	private JTextField textField;
+	// Criando Painel para receber elementos
+	private JPanel contentPane = new JPanel();
+	
+	// Criando Campo de texto para o Nome do Jogador
+	private JTextField caixaDeTexto = new JTextField(20);
+	
+	// Criando Botões
 	private JButton iniciarJogo = new JButton("Iniciar Jogo");
+	private JButton fecharJogo = new JButton("Fechar o Jogo");
+	private JButton ranking = new JButton("Ranking");
+	
+	// Criando Labels
+	private JLabel labelBatalhaNaval = new JLabel("Batalha Naval");
+	private JLabel labelUsuario = new JLabel("Insira o usu\u00E1rio:");
 
 	public TelaInicial() {
 		
@@ -23,10 +36,8 @@ public class TelaInicial extends JFrame implements ActionListener {
 		// Configura o término do programa quando fechado
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Configura o tamanho da janela
-		setBounds(100, 100, 507, 409);
+		setBounds(100, 100, 507, 409);		
 		
-		// Cria um Painel por cima da janela para maniplar os elementos
-		contentPane = new JPanel();
 		// Retira a borda do painel
 		contentPane.setBorder(null);
 		// Retira o Layout do Painel
@@ -34,20 +45,19 @@ public class TelaInicial extends JFrame implements ActionListener {
 		// Seta o painel como painel do frame
 		setContentPane(contentPane);
 		
-		textField = new JTextField();
-		textField.setBounds(133, 141, 223, 29);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		// Campo de entrada Nome do jogador
+		caixaDeTexto.setBounds(133, 141, 223, 29);		
+		contentPane.add(caixaDeTexto);	
 		
-		JLabel lblBatalhaNaval = new JLabel("Batalha Naval");
-		lblBatalhaNaval.setFont(new Font("Roboto", Font.BOLD, 18));
-		lblBatalhaNaval.setBounds(182, 11, 120, 29);
-		contentPane.add(lblBatalhaNaval);
+		// Label Batalha Naval
+		labelBatalhaNaval.setFont(new Font("Roboto", Font.BOLD, 18));
+		labelBatalhaNaval.setBounds(182, 11, 120, 29);
+		contentPane.add(labelBatalhaNaval);
 		
-		JLabel lblInsiraOUsurio = new JLabel("Insira o usu\u00E1rio:");
-		lblInsiraOUsurio.setFont(new Font("Roboto", Font.PLAIN, 14));
-		lblInsiraOUsurio.setBounds(135, 116, 105, 14);
-		contentPane.add(lblInsiraOUsurio);
+		// Label Inserir usuário
+		labelUsuario.setFont(new Font("Roboto", Font.PLAIN, 14));
+		labelUsuario.setBounds(135, 116, 105, 14);
+		contentPane.add(labelUsuario);
 		
 		// Botão Iniciar Jogo		
 		iniciarJogo.setBounds(182, 238, 111, 36);
@@ -55,22 +65,18 @@ public class TelaInicial extends JFrame implements ActionListener {
 		iniciarJogo.addActionListener(this);		
 		contentPane.add(iniciarJogo);
 		
-		JButton btnRanking = new JButton("Ranking");
-		btnRanking.setFont(new Font("Roboto", Font.BOLD, 14));
-		btnRanking.setBounds(30, 238, 111, 36);
-		btnRanking.setFocusable(false);
-		contentPane.add(btnRanking);
+		// Botão Ranking
+		ranking.setFont(new Font("Roboto", Font.BOLD, 14));
+		ranking.setBounds(30, 238, 111, 36);
+		ranking.setFocusable(false);
+		contentPane.add(ranking);
 		
-		JButton btnFechar = new JButton("Fechar o Jogo");
-		btnFechar.setFont(new Font("Roboto", Font.BOLD, 12));
-		btnFechar.setFocusable(false);
-		btnFechar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
-		btnFechar.setBounds(327, 238, 111, 36);
-		contentPane.add(btnFechar);
+		// Botão Fechar jogo
+		fecharJogo.setBounds(327, 238, 111, 36);
+		fecharJogo.setFont(new Font("Roboto", Font.BOLD, 12));
+		fecharJogo.setFocusable(false);		
+		fecharJogo.addActionListener(this);		
+		contentPane.add(fecharJogo);
 		
 		// Centralizando a tela quando iniciada
 		setLocationRelativeTo(null);
@@ -81,15 +87,41 @@ public class TelaInicial extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		
 		// Evento quando pressionado o botão Iniciar Jogo
 		if (e.getSource() == iniciarJogo){
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {						
-					Tabuleiro tabuleiro = new Tabuleiro();
-					tabuleiro.setVisible(true);						
-				}
-			});
+			
+			// Instanciando Objeto Jogador
+			Jogador jogador = new Jogador();
+			
+			// Setando o nome digitado para o objeto Jogador
+			String nomeJogador = caixaDeTexto.getText();
+			jogador.setNome(nomeJogador);
+			
+			// Se o campo de nome estiver vazio, pede um usuário válido
+			if (nomeJogador.equals("")){
+				JOptionPane.showMessageDialog(null, "Insira um usuário válido");
+			}
+			
+			// Se o campo não estiver vazio, inicia um novo jogo
+			if (!(nomeJogador.equals(""))){
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {						
+						Tabuleiro tabuleiro = new Tabuleiro();
+						tabuleiro.setVisible(true);						
+					}
+				});
+				// Limpa a caixa de texto
+				caixaDeTexto.setText("");
+			}
+			
 		}
-		// Evento quando pressionado o botão 
+		
+		// Evento quando pressionado o botão Fechar Jogo
+		if (e.getSource() == fecharJogo){
+			System.exit(0);
+		}
+		
+		// Evento quando pressionado o botão Ranking
 	}
 }
