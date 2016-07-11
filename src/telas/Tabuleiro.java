@@ -136,8 +136,19 @@ public class Tabuleiro extends JFrame implements ActionListener{
 					}
 					// Se não for 0, mostra a imagem de navio destruído
 					else if (vetor[linha][coluna] != 0) {
+						
+						// Configura a imagem de navio destruído
 						Botoes[linha][coluna].setIcon(
 								new ImageIcon(Tabuleiro.class.getResource("/telas/explosao.png")));
+						
+						// Configura a imagem para o Botão desabilitado
+						Botoes[linha][coluna].setDisabledIcon(
+								new ImageIcon(Tabuleiro.class.getResource("/telas/explosao.png")));
+						
+						// Desabilita o botão já clicado para não continuar pontuando
+						Botoes[linha][coluna].setEnabled(false);
+						
+						// Decrementa o contador de navios restantes e incrementa a pontuação
 						contNavios.setText("" + --contadorNavio);
 						pontuacao++;
 					}
