@@ -2,8 +2,6 @@ package telas;
 
 import javax.swing.*;
 
-import battleship.Jogador;
-
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -14,7 +12,7 @@ public class TelaInicial extends JFrame implements ActionListener {
 	
 	// Criando Painel para receber elementos
 	private JPanel contentPane = new JPanel();
-	
+		
 	// Criando Campo de texto para o Nome do Jogador
 	private JTextField caixaDeTexto = new JTextField(20);
 	
@@ -69,6 +67,7 @@ public class TelaInicial extends JFrame implements ActionListener {
 		ranking.setFont(new Font("Roboto", Font.BOLD, 14));
 		ranking.setBounds(30, 238, 111, 36);
 		ranking.setFocusable(false);
+		ranking.addActionListener(this);
 		contentPane.add(ranking);
 		
 		// Botão Fechar jogo
@@ -91,12 +90,8 @@ public class TelaInicial extends JFrame implements ActionListener {
 		// Evento quando pressionado o botão Iniciar Jogo
 		if (e.getSource() == iniciarJogo){
 			
-			// Instanciando Objeto Jogador
-			Jogador jogador = new Jogador();
-			
-			// Setando o nome digitado para o objeto Jogador
+			// Criando String para guardar o nome do jogador
 			String nomeJogador = caixaDeTexto.getText();
-			jogador.setNome(nomeJogador);
 			
 			// Se o campo de nome estiver vazio, pede um usuário válido
 			if (nomeJogador.equals("")){
@@ -107,14 +102,13 @@ public class TelaInicial extends JFrame implements ActionListener {
 			if (!(nomeJogador.equals(""))){
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {						
-						Tabuleiro tabuleiro = new Tabuleiro();
+						Tabuleiro tabuleiro = new Tabuleiro(nomeJogador);
 						tabuleiro.setVisible(true);						
 					}
-				});
+				});				
 				// Limpa a caixa de texto
 				caixaDeTexto.setText("");
-			}
-			
+			}			
 		}
 		
 		// Evento quando pressionado o botão Fechar Jogo
@@ -123,5 +117,13 @@ public class TelaInicial extends JFrame implements ActionListener {
 		}
 		
 		// Evento quando pressionado o botão Ranking
+		if (e.getSource() == ranking){
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Ranking ranking = new Ranking();
+					ranking.setVisible(true);					
+				}
+			});
+		}
 	}
 }

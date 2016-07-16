@@ -1,6 +1,11 @@
 package battleship;
 
-public class Jogador {
+import java.io.Serializable;
+
+public class Jogador implements Serializable, Comparable<Jogador> {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String nome;
 	private int pontuacao;
 	
@@ -15,5 +20,17 @@ public class Jogador {
 	}
 	public void setPontuacao(int pontuacao) {
 		this.pontuacao = pontuacao;
+	}
+	@Override
+	public String toString(){
+		StringBuilder str = new StringBuilder();
+		str.append("Nome: " + this.nome + " Pontuacao: " + this.pontuacao);
+		return str.toString();
+	}
+	
+	@Override
+	public int compareTo(Jogador jog) {
+		int compararPontos = ((Jogador) jog).getPontuacao();		
+		return compararPontos - this.pontuacao;
 	}
 }

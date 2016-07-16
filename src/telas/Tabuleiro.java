@@ -1,13 +1,12 @@
 package telas;
 
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-
+import battleship.Jogador;
 import battleship.Jogo;
+import battleship.Pontuacao;
 
 public class Tabuleiro extends JFrame implements ActionListener{
 	
@@ -27,18 +26,21 @@ public class Tabuleiro extends JFrame implements ActionListener{
 	JLabel naviosRestantes = new JLabel("Navios Restantes");
 	JLabel tirosRestantes = new JLabel("Tiros Restantes");
 	JLabel contNavios = new JLabel("");
-	int contadorNavio = 19;
 	JLabel contTiros = new JLabel("");
+	int contadorNavio = 19;	
 	int contadorTiro = 30;
 	
 	// Vetor que fica por trás dos Botões e guarda água ou navios
 	int vetor[][] = new int[10][10];
 	int pontuacao = 0;
+	String nomeJogador;
 	
 	// Instanciando classe jogo que preenche o vetor e distribui os navios
-	Jogo jogo = new Jogo();		
+	Jogo jogo = new Jogo();
+	Jogador jogador = new Jogador();
+	Pontuacao pontos = Pontuacao.getInstance();
 
-	public Tabuleiro(){
+	public Tabuleiro(String nomeJogador){
 		
 		// Titulo da janela
 		setTitle("Batalha Naval");
@@ -49,7 +51,7 @@ public class Tabuleiro extends JFrame implements ActionListener{
 		//Configura o maximizar e fixa o tamanho da janela
 		setResizable(false);		
 		// Configura o fechamento da janela
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		// Configura o Container
 		setContentPane(jContentPane);
@@ -109,6 +111,8 @@ public class Tabuleiro extends JFrame implements ActionListener{
 		
 		// Chamando o método que inicia o jogo e distribui os navios
 		jogo.iniciaJogo(vetor);
+		// Passando o nome do jogador que está jogando para o objeto Jogador
+		jogador.setNome(nomeJogador);
 	}
 	
 	@Override
@@ -117,6 +121,8 @@ public class Tabuleiro extends JFrame implements ActionListener{
 		// Função do botão Voltar
 		if (e.getSource() == voltar){
 			this.dispose();
+			// Quando voltar para tela inicial, a lista com os jogadores é gravada no arquivo
+			pontos.salvaLista();
 		}
 		
 		// Função dos Botões do Tabuleiro
@@ -159,12 +165,16 @@ public class Tabuleiro extends JFrame implements ActionListener{
 						JOptionPane.showMessageDialog(this, "Fim de Jogo. Sua pontuação: " + pontuacao,
 								"Fim de Jogo", JOptionPane.INFORMATION_MESSAGE);
 						
-						// Grava a pontuação no arquivo
+						// Grava a pontuação no objeto Jogador
+						jogador.setPontuacao(pontuacao);
+						
+						// Salva jogador no Arraylist
+						pontos.adicionaJogador(jogador);
 						
 						// Reinicia o jogo
 						this.dispose();
 						// Cria um novo tabuleiro e seta a visibilidade
-						Tabuleiro tabuleiro = new Tabuleiro();
+						Tabuleiro tabuleiro = new Tabuleiro(jogador.getNome());
 						tabuleiro.setVisible(true);
 					}
 				}
@@ -177,7 +187,7 @@ public class Tabuleiro extends JFrame implements ActionListener{
 			this.dispose();
 			
 			// Cria um novo tabuleiro e seta a visibilidade
-			Tabuleiro tabuleiro = new Tabuleiro();
+			Tabuleiro tabuleiro = new Tabuleiro(jogador.getNome());
 			tabuleiro.setVisible(true);
 			
 			// Mostra mensagem de Jogo Reiniciado
