@@ -1,4 +1,10 @@
 package battleship;
+/**
+ * Classe que implementa métodos para distribuição das embarcações e que inicia o Jogo.
+ * @see Navio
+ * @see Tabuleiro
+ * @author Rodrigo Lima
+ */
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -7,6 +13,15 @@ public class Jogo {
 	
 	private Random generate = new Random();
 	
+	/**
+	 * Método que distribui as embarcações no tabuleiro.
+	 * <p> A posição de cada navio no tabuleiro é gerada randomicamente e armazenada nas variáveis 
+	 * linha e coluna.
+	 * <p> Uma lista com os navios é criada e todas as posições do tabuleiro são preenchidas com 0 (água).
+	 * <p> A orientação dos navios é gerada randomicamente e o método cabeNavio verifica se existe espaço,
+	 * se existir os navios são distribuídos, se não, novas posições são geradas.
+	 * @param vetor Vetor criado pela classe Tabuleiro que receberá os Navios ou Água.
+	 */
 	public void iniciaJogo(int[][] vetor){		
 		
 		// Cria a posição do navio no tabuleiro
@@ -66,7 +81,19 @@ public class Jogo {
 			}
 		}
 	}
-	
+	/**
+	 * Método que verifica se o navio pode ser distribuído na posição gerada randomicamente.
+	 * <p> O tabuleiro é distribuído como uma matriz, com linhas e colunas, os navios maiores precisam
+	 * estar distribuídos dentro dos limites do tabuleiro e em posições vazias, onde não existam navios
+	 * já distribuídos.
+	 * @return Retorna true se o navio couber na posição, se não, retorna false.
+	 * @param linha Linha gerada randomicamente.
+	 * @param coluna Coluna gerada randomicamente.
+	 * @param orientacao Orientação do navio.
+	 * @param tamanho Tamanho de blocos que o navio ocupa.
+	 * @param vetor Vetor com as posições que podem ou não conter os navios.
+	 * @return Retorna true se o navio couber na posição, se não retorna false.
+	 */
 	public boolean cabeNavio(int linha, int coluna, int orientacao, int tamanho, int vetor[][]){
 		// Se a orientação for Vertical, trava a coluna e incrementa a linha
 		if (orientacao == 0){

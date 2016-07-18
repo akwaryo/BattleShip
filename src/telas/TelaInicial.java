@@ -1,4 +1,10 @@
 package telas;
+/**
+ * Classe que implementa a Tela Inicial do jogo fornecendo uma interface para interação com o usuário.
+ * <p> A classe extende o utilitário de interface swing JFrame e implementa a interface ActionListener,
+ * que configura as ações de interação com o usuário.
+ * @author Rodrigo Lima
+ */
 
 import javax.swing.*;
 
@@ -25,6 +31,9 @@ public class TelaInicial extends JFrame implements ActionListener {
 	private JLabel labelBatalhaNaval = new JLabel("Batalha Naval");
 	private JLabel labelUsuario = new JLabel("Insira o usu\u00E1rio:");
 
+	/**
+	 * Construtor da classe TelaInicial que cria os elementos gráficos da janela.
+	 */
 	public TelaInicial() {
 		
 		// Titulo da janela
@@ -84,7 +93,15 @@ public class TelaInicial extends JFrame implements ActionListener {
 		getRootPane().setDefaultButton(iniciarJogo);
 		
 	}
-	
+	/**
+	 * Método que configura as ações dos botões da interface gráfica.
+	 * <p> O botão Iniciar Jogo captura o nome do jogador informado pelo usuário e inicia uma Thread que 
+	 * executa a classe Tabuleiro, passando o nome do jogador como parâmetro.
+	 * <p> O botão Fechar Jogo fecha o jogo, finalizando todas as threads em execução.
+	 * <p> O botão Ranking inicia uma Thread que executa a classe Ranking.
+	 * @see Tabuleiro
+	 * @see Ranking
+	 */
 	public void actionPerformed(ActionEvent e) {
 		
 		// Evento quando pressionado o botão Iniciar Jogo

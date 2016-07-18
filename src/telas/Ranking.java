@@ -1,10 +1,20 @@
 package telas;
-
+/**
+ * Classe que implementa o ranking do jogo em uma interface gráfica.
+ * <p> A classe extende o utilitário de interface swing JFrame e implementa a interface ActionListener,
+ * que configura as ações de interação com o usuário.
+ * <p> Utiliza o método getJogadores da classe Pontuacao para recuperar a lista de jogadores persistidos
+ * no arquivo ranking, ordena pela pontuação mais alta e cria uma String com os nomes e a pontuação de cada
+ * jogador. Por fim mostra para o usuário a String em forma de lista com o ranking completo.
+ * @see Pontuacao
+ * @see Jogador
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
 import battleship.Jogador;
+import battleship.ListaInvalidaException;
 import battleship.Pontuacao;
 import java.awt.Font;
 import java.awt.TextArea;
@@ -22,6 +32,9 @@ public class Ranking extends JFrame implements ActionListener {
 	// JScrollPane texto = new JScrollPane(caixaDeTexto);
 	TextArea textArea = new TextArea();
 	
+	/**
+	 * Construtor da classe Ranking que cria os elementos gráficos da janela.
+	 */
 	public Ranking() {
 		
 		// Configura o nome da Janela
@@ -56,22 +69,43 @@ public class Ranking extends JFrame implements ActionListener {
 		// Criação da lista com o ranking, buscando direto do arquivo
 		ArrayList<Jogador> jogadores = new Pontuacao().getJogadores();
 		
-		// Ordenando os jogadores por maior pontuação com o metódo compareTo()
-		Collections.sort(jogadores);
-		
-		// Criação de uma StringBuilder para concatenar todos os jogadores em uma String
-		StringBuilder ranking = new StringBuilder();
-		
-		// Montagem da StringBuilder
-		for (Jogador jog : jogadores){
-			ranking.append(jog.getNome() + " 		" + jog.getPontuacao() + "\n");		
-		}
-		
-		// Criação da String final que recebe o raning completo e mostra na TextArea
-		String rankingFinal = ranking.toString();
-		textArea.setText(rankingFinal);
+		try {
+			verificaLista(jogadores);
+			
+			// Ordenando os jogadores por maior pontuação com o metódo compareTo()
+			Collections.sort(jogadores);
+			
+			// Criação de uma StringBuilder para concatenar todos os jogadores em uma String
+			StringBuilder ranking = new StringBuilder();
+			
+			// Montagem da StringBuilder
+			for (Jogador jog : jogadores){
+				ranking.append(jog.getNome() + " 		" + jog.getPontuacao() + "\n");		
+			}
+			
+			// Criação da String final que recebe o raning completo e mostra na TextArea
+			String rankingFinal = ranking.toString();
+			textArea.setText(rankingFinal);	
+			
+		} catch (ListaInvalidaException e){
+			System.out.println(e.getMessage());
+		}			
 	}
-
+	
+	/**
+	 * Método que verifica se a lista está vazia ou nula e lança exceção personalizada.
+	 * 
+	 */
+	public void verificaLista(ArrayList<Jogador> jogadores) throws ListaInvalidaException{
+		if (jogadores == null || jogadores.isEmpty()){
+			throw new ListaInvalidaException("O arquivo está vazio!");
+		}
+	}
+	
+	/**
+	 * Método que configura as ações dos botões da interface gráfica.
+	 * <p> O botão Voltar fecha a janela do ranking e retorna para a Tela Inicial
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == voltar){

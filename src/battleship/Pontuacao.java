@@ -1,4 +1,12 @@
 package battleship;
+/**
+ * Classe que adiciona os objetos {@link #Jogador() Jogador} na lista de jogadores,
+ * persiste a lista em arquivo e busca no arquivo a lista de jogadores.
+ * <p> Implementa o Padrão Singleton, para que um jogador seja instanciado apenas uma vez e possa
+ * realizar vários jogos em sequência. 
+ * @author Rodrigo Lima
+ * @see Jogador
+ */
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,10 +19,16 @@ public class Pontuacao {
 	private static Pontuacao instancia;	
 	private ArrayList<Jogador> jogadores = new ArrayList<Jogador>();
 	
+	/**
+	 * Construtor vazio para implementação do padrão Singleton.
+	 */
 	public Pontuacao(){
 	}
 	
-	// Padrão Singleton para inicializar apenas uma vez a Pontuação
+	/**
+	 * Padrão Singleton para instanciar apenas uma Pontuação.
+	 * @return Variável estática instancia.
+	 */
 	public static synchronized Pontuacao getInstance(){
 		if (instancia == null) {
 			instancia = new Pontuacao();
@@ -22,12 +36,20 @@ public class Pontuacao {
 		return instancia;
 	}	
 	
-	// Adiciona objeto jogador no Arraylist
+	/**
+	 * Método que adiciona objetos do tipo Jogador na Lista.
+	 * @param jogador Jogador jogador.
+	 */
 	public void adicionaJogador(Jogador jogador){
 		jogadores.add(jogador);
 	}
 	
-	// Salva Arraylist com jogadores no arquivo
+	/**
+	 * Método que persiste a lista de jogadores em arquivo.
+	 * <p> Este método verifica o arquivo antes de sobrescrever uma nova lista, se já houver 
+	 * objetos no arquivo, eles são salvos numa lista temporária e reescritos concatenados com a 
+	 * nova lista.
+	 */
 	public void salvaLista(){
 		
 		// Cria Array temporário para guardar jogadores já salvos
@@ -44,7 +66,7 @@ public class Pontuacao {
 				stream.close();
 				file.close();
 			} catch (Exception e){
-				System.out.println("Erro ao acessar o arquivo1.");
+				System.out.println("Erro ao acessar o arquivo.");
 			}
 		}
 		
@@ -56,11 +78,16 @@ public class Pontuacao {
 			stream.close();
 			file.close();
 		} catch (Exception e){
-			System.out.println("Erro ao acessar o arquivo2.");
+			System.out.println("Erro ao acessar o arquivo.");
 		}
 	}
 
-	// Lê a lista de jogadores no arquivo e retorna numa lista
+	/**
+	 * Método que busca a lista de jogadores no arquivo.
+	 * <p> Este método é utilizado pelo método salvaLista para verificar se 
+	 * existe lista já persistida no arquivo, se não houver ele retorna uma lista null.
+	 * @return Retorna a lista de jogadores buscada no arquivo, se não existir retorna null.
+	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Jogador> getJogadores(){
 		ArrayList<Jogador> jog = null;

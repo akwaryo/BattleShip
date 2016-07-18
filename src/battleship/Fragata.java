@@ -1,5 +1,13 @@
 package battleship;
-
+/**
+ * Classe que implementa a embarcação do tipo Fragata.
+ * <p> A Fragata ocupa 3 blocos e existem 3 no Tabuleiro.
+ * 
+ * <p> Apenas os métodos Getters são implementados, já que as variáveis são definitivas.
+ * 
+ * @author Rodrigo Lima
+ * @see Navio
+ */
 public class Fragata implements Navio {
 	
 	private int qtdDeNavios = 3;
