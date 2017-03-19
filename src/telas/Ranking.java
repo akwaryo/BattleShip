@@ -58,8 +58,8 @@ public class Ranking extends JFrame implements ActionListener {
 		contentPane.add(voltar);
 		
 		// Label título
-		labelTitulo.setFont(new Font("Roboto", Font.BOLD, 18));
-		labelTitulo.setBounds(172, 11, 157, 29);
+		labelTitulo.setFont(new Font("Verdana", Font.BOLD, 16));
+		labelTitulo.setBounds(172, 11, 170, 29);
 		contentPane.add(labelTitulo);		
 		
 		// Configurando o tamnho da área de texto e adicionando no painel

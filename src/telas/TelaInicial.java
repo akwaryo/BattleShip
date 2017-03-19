@@ -24,7 +24,7 @@ public class TelaInicial extends JFrame implements ActionListener {
 	
 	// Criando Botões
 	private JButton iniciarJogo = new JButton("Iniciar Jogo");
-	private JButton fecharJogo = new JButton("Fechar o Jogo");
+	private JButton fecharJogo = new JButton("Fechar Jogo");
 	private JButton ranking = new JButton("Ranking");
 	
 	// Criando Labels
@@ -68,20 +68,20 @@ public class TelaInicial extends JFrame implements ActionListener {
 		
 		// Botão Iniciar Jogo		
 		iniciarJogo.setBounds(182, 238, 111, 36);
-		iniciarJogo.setFont(new Font("Roboto", Font.BOLD, 14));		
+		iniciarJogo.setFont(new Font("Verdana", Font.PLAIN, 12));		
 		iniciarJogo.addActionListener(this);		
 		contentPane.add(iniciarJogo);
 		
 		// Botão Ranking
-		ranking.setFont(new Font("Roboto", Font.BOLD, 14));
+		ranking.setFont(new Font("Verdana", Font.PLAIN, 12));
 		ranking.setBounds(30, 238, 111, 36);
 		ranking.setFocusable(false);
 		ranking.addActionListener(this);
 		contentPane.add(ranking);
 		
 		// Botão Fechar jogo
-		fecharJogo.setBounds(327, 238, 111, 36);
-		fecharJogo.setFont(new Font("Roboto", Font.BOLD, 12));
+		fecharJogo.setBounds(327, 238, 120, 36);
+		fecharJogo.setFont(new Font("Verdana", Font.PLAIN, 12));
 		fecharJogo.setFocusable(false);		
 		fecharJogo.addActionListener(this);		
 		contentPane.add(fecharJogo);
