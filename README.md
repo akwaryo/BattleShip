@@ -23,7 +23,8 @@ Rode o programa.
 ### Como Jogar
 
 :video_game: Na Tela Inicial você pode ver o Ranking de pontuação, Iniciar um novo jogo ou Fechar o jogo.
-Para iniciar o jogo basta inserir o nome do jogador e clicar em Iniciar o Jogo
+
+Para começar um novo jogo basta inserir o nome do jogador e clicar em Iniciar Jogo
 
 ![telainicial](/telainicial.png)
 
